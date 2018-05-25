@@ -1,3 +1,8 @@
+/*
+ Document Analyzer which takes the input of a text document and outputs a detailed summary of the document.
+The summary report includes: word count, paragraph count, sentence count, top ten most frequently used words, and the number of words that
+begin with each alphabets.
+*/
 
 #![allow(unused)]
 
@@ -13,6 +18,7 @@ fn main() {
     let delimiter: &[_] = &['!','.',',','?'];
     let mut paragraph_count = 0;
     let mut sentence_count = 0;
+    let mut word_count = 0;
     let args: Vec<String> = env::args().collect();
 
     if args.len()< 2
@@ -39,6 +45,7 @@ fn main() {
 
             for str in iter
                 {
+                    word_count = word_count + 1;
                     count = count + 1;
                     println!("str: {}", &str,);
                     if str.find(|c : char| (c == '.') | (c == '!') | (c == '?') )!= None  // mark the end of sentence
@@ -63,7 +70,7 @@ fn main() {
         buf = s.into_bytes();
         buf.clear();
     }
-
+    println!("Word Count: {}",word_count);
     println!("Sentence Count: {}",sentence_count);
     println!("Paragraph Count: {}",paragraph_count);
 }
