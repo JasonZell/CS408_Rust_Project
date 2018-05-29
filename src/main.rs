@@ -66,6 +66,7 @@ fn main() {
     let mut word_count = 0;
     let mut word_frequency : HashMap<String, u32> = HashMap::new();
     let mut heap : BinaryHeap<Heappair> = BinaryHeap::new();
+    let mut alpha_frequency : HashMap<char,u32> = HashMap::new();
 
     if args.len()< 2
         {
@@ -96,6 +97,16 @@ fn main() {
                             sentence_count =  sentence_count + 1;
                         }
                     let good_str = str.trim_matches(delimiter);
+                    let first_char = good_str.chars().next();
+                    match first_char {
+                        Some(c) =>
+                            {
+                                // entry function will try to get the value base on key, if key doesn't exist, it will insert the key with value of 1
+                                let count =  alpha_frequency.entry(c.to_ascii_uppercase()).or_insert(1);
+                                *count += 1;
+                            }
+                        None => {},
+                    }
                     if word_frequency.get(good_str) == None
                         {
                             word_frequency.insert(good_str.to_string(),1);
@@ -149,7 +160,11 @@ fn main() {
                 }
 
         }
+    println!("\nNumber of words that starts with:");
+    for i in 0..26 {
+        println!("{} : {} ",alpha_array[i],alpha_frequency.get(&alpha_array[i]).unwrap());
 
+    }
 }
 
 
