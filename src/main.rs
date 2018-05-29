@@ -121,7 +121,8 @@ fn main() {
                 {
                     paragraph_count = paragraph_count + 1;
                 }
-        }
+        } // iter will be dropped here. so it won't outlive its referent 's'
+
         // this returns the ownership of the read data to buf
         // there is no allocation
         buf = s.into_bytes();
